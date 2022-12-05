@@ -1,5 +1,12 @@
+const fs = require('fs');
+const path = require('path');
 const read = async () => {
-    // Write your code here 
+    const fileStream = fs.createReadStream(path.join(__dirname, 'files','fileToRead.txt'), 'utf-8');
+    fileStream.on('readable', () => {
+        let data = fileStream.read();
+        if (data !== null) process.stdout.write(data);
+        //fileStream.destroy();
+    });
 };
 
-await read();
+read();
